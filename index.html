@@ -100,8 +100,8 @@ document.addEventListener("mousemove", (e) => {
     const distance = Math.sqrt(dx*dx + dy*dy);
 
     if (distance < 140) {  // радиус "страха"
-        const moveX = (Math.random() - 0.5) * 350;
-        const moveY = (Math.random() - 0.5) * 250;
+        const moveX = (Math.random() - 1.5) * 350;
+        const moveY = (Math.random() - 1.5) * 250;
 
         let newX = rect.left + moveX;
         let newY = rect.top + moveY;
@@ -119,7 +119,7 @@ document.addEventListener("mousemove", (e) => {
 yesBtn.addEventListener("click", () => {
     document.body.innerHTML = `
         <div style="color:white;text-align:center;margin-top:35vh;">
-            <h1 style="font-size:3em;">Я люблю тебя! ❤️</h1>
+            <h1 style="font-size:3em;"> Я люблю тебя!❤️ </h1>
         </div>
     `;
     setInterval(createHeart, 180);
