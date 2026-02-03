@@ -1,110 +1,25 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<title>Валентинка 💖</title>
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    text-align: center;
-}
-
-.container {
-    position: relative;
-}
-
-h1 {
-    color: white;
-    font-size: 2.7em;
-    margin-bottom: 25px;
-}
-
-.buttons {
-    position: relative;
-    height: 100px;
-}
-
-button {
-    padding: 14px 30px;
-    font-size: 20px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: absolute;
-}
-
-#yes {
-    background: #ff4d6d;
-    color: white;
-    left: 38%;
-}
-
-#yes:hover {
-    transform: scale(1.6);
-}
-
-#no {
-    background: white;
-    color: #ff4d6d;
-    left: 58%;
-}
-
-.note {
-    margin-top: 80px;
-    font-size: 12px;
-    color: white;
-    opacity: 0.85;
-}
-
-/* Сердечки */
-.heart {
-    position: fixed;
-    color: red;
-    font-size: 22px;
-    animation: fall linear forwards;
-}
-
-@keyframes fall {
-    to { transform: translateY(110vh); }
-}
-</style>
-</head>
-<body>
-
-<div class="container" id="main">
-    <h1>Китя, ты будешь моей валентинкой? 💖</h1>
-    <div class="buttons">
-        <button id="yes">Да</button>
-        <button id="no">Нет</button>
-    </div>
-    <div class="note">ответ "нет" не будет принят</div>
-</div>
-
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 
-// КНОПКА "НЕТ" УБЕГАЕТ СИЛЬНЕЕ
+// КНОПКА "НЕТ" УБЕГАЕТ РАНЬШЕ И ДАЛЬШЕ
 document.addEventListener("mousemove", (e) => {
     const rect = noBtn.getBoundingClientRect();
-    const dx = e.clientX - (rect.left + rect.width/2);
-    const dy = e.clientY - (rect.top + rect.height/2);
-    const distance = Math.sqrt(dx*dx + dy*dy);
+    const btnCenterX = rect.left + rect.width / 2;
+    const btnCenterY = rect.top + rect.height / 2;
 
-    if (distance < 140) {  // радиус "страха"
-        const moveX = (Math.random() - 1.5) * 350;
-        const moveY = (Math.random() - 1.5) * 250;
+    const dx = e.clientX - btnCenterX;
+    const dy = e.clientY - btnCenterY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
-        let newX = rect.left + moveX;
-        let newY = rect.top + moveY;
+    const fearRadius = 220; // расстояние, на котором кнопка начинает бояться
+
+    if (distance < fearRadius) {
+        const angle = Math.atan2(dy, dx);
+        const moveDistance = 180; // насколько далеко она прыгает
+
+        let newX = rect.left - Math.cos(angle) * moveDistance;
+        let newY = rect.top - Math.sin(angle) * moveDistance;
 
         newX = Math.max(0, Math.min(window.innerWidth - rect.width, newX));
         newY = Math.max(0, Math.min(window.innerHeight - rect.height, newY));
@@ -119,13 +34,12 @@ document.addEventListener("mousemove", (e) => {
 yesBtn.addEventListener("click", () => {
     document.body.innerHTML = `
         <div style="color:white;text-align:center;margin-top:35vh;">
-            <h1 style="font-size:3em;"> Я люблю тебя!❤️ </h1>
+            <h1 style="font-size:3em;">Я люблю тебя! ❤️</h1>
         </div>
     `;
     setInterval(createHeart, 180);
 });
 
-// СЕРДЕЧКИ
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -137,6 +51,3 @@ function createHeart() {
     setTimeout(() => heart.remove(), 5000);
 }
 </script>
-
-</body>
-</html>
