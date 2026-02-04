@@ -103,8 +103,8 @@ document.addEventListener("mousemove", (e) => {
     const dy = e.clientY - centerY;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    const fearRadius = 180;   // когда начинает бояться
-    const jumpDistance = 140; // насколько отпрыгивает
+    const fearRadius = 180;
+    const jumpDistance = 140;
 
     if (distance < fearRadius) {
         const angle = Math.atan2(dy, dx);
@@ -114,36 +114,4 @@ document.addEventListener("mousemove", (e) => {
 
         const padding = 20;
         newX = Math.max(padding, Math.min(window.innerWidth - rect.width - padding, newX));
-        newY = Math.max(padding, Math.min(window.innerHeight - rect.height - padding, newY));
-
-        noBtn.style.position = "fixed";
-        noBtn.style.left = newX + "px";
-        noBtn.style.top = newY + "px";
-    }
-});
-
-// Нажатие "Да"
-yesBtn.addEventListener("click", () => {
-    document.body.innerHTML = `
-        <div style="color:white;text-align:center;margin-top:35vh;">
-            <h1 style="font-size:3em;">Я люблю тебя! ❤️</h1>
-        </div>
-    `;
-    setInterval(createHeart, 180);
-});
-
-// Летящие сердечки
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = "-10px";
-    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-}
-</script>
-
-</body>
-</html>
+        newY = Math.max(padding, Math.min(window.innerHeight - rect.height -
